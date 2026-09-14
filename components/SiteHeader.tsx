@@ -1,0 +1,1 @@
+export default function SiteHeader(){return <header className="site-header"><div className="container nav"><a className="logo" href="/">LUMIÉRA Shine</a><nav className="nav-links"><a href="/#products">Koleksi</a><a href="/#how-to-buy">Cara Beli</a><a href="/#footer">Kontak</a></nav></div></header>}

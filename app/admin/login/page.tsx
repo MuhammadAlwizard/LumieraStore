@@ -1,0 +1,4 @@
+'use client';
+import { signIn } from 'next-auth/react';
+import { useState } from 'react';
+export default function Login(){const [username,setUsername]=useState(''),[password,setPassword]=useState(''),[error,setError]=useState('');async function submit(e:React.FormEvent){e.preventDefault();const r=await signIn('credentials',{username,password,redirect:false,callbackUrl:'/admin'});if(r?.error)setError('Username atau password salah.');else location.href='/admin';}return <main className="hero"><form className="checkout-card" onSubmit={submit}><div className="eyebrow">LUMIÉRA Shine</div><h2>Admin Login</h2>{error&&<p className="error">{error}</p>}<input className="form-control" placeholder="Username" value={username} onChange={e=>setUsername(e.target.value)}/><input className="form-control" type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)}/><button className="button">Masuk</button></form></main>}

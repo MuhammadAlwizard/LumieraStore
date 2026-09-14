@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÉRA Shine - Premium Hijab | Shine in Every Shade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #5a5a5a;
+            background-color: #faf9f7;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #ffffff;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a8626c 0%, #8b3a3a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: #5a5a5a;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav .nav-links a:hover {
+            color: #a8626c;
+        }
+
+        @media (max-width: 768px) {
+            nav .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #faf9f7 0%, #f5e6d3 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: #8b3a3a;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            font-style: italic;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .shine-icon {
+            font-size: 2rem;
+            display: inline-block;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .hero .cta-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #a8626c 0%, #8b3a3a 100%);
+            color: #ffffff;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(168, 98, 108, 0.3);
+            margin-top: 1rem;
+        }
+
+        .hero .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(168, 98, 108, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1.5rem;
+                min-height: 60vh;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                letter-spacing: 1px;
+            }
+
+            .hero .tagline {
+                font-size: 1rem;
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #1a1a1a;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #a8626c 0%, #7a9b8e 100%);
+            margin: 1rem auto 0;
+        }
+
+        /* Products Section */
+        .products {
+            background-color: #ffffff;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-color {
+            font-size: 0.9rem;
+            color: #8b3a3a;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: #5a5a5a;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .product-link {
+            color: #a8626c;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .product-link:hover {
+            color: #8b3a3a;
+            text-decoration: underline;
+        }
+
+        /* Color palette for products */
+        .color-burgundy {
+            background: linear-gradient(135deg, #8B3A3A 0%, #a8626c 100%);
+        }
+
+        .color-oatmeal {
+            background: linear-gradient(135deg, #E8D5C0 0%, #F5E6D3 100%);
+            color: #1a1a1a !important;
+        }
+
+        .color-stone {
+            background: linear-gradient(135deg, #8A8B8D 0%, #9B9C9E 100%);
+        }
+
+        .color-sage {
+            background: linear-gradient(135deg, #6B8C7E 0%, #7A9B8E 100%);
+        }
+
+        /* How to Buy Section */
+        .how-to-buy {
+            background: linear-gradient(135deg, #f5e6d3 0%, #faf9f7 100%);
+        }
+
+        .buy-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .buy-method {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .buy-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .buy-method-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .buy-method h3 {
+            font-size: 1.3rem;
+            color: #1a1a1a;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .buy-method p {
+            color: #5a5a5a;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #a8626c 0%, #8b3a3a 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(168, 98, 108, 0.3);
+        }
+
+        .btn-secondary {
+            background: #7a9b8e;
+        }
+
+        .btn-secondary:hover {
+            background: #6b8c7e;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            padding: 3rem 2rem 1.5rem;
+            text-align: center;
+        }
+
+        footer .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        footer h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #a8626c;
+            font-weight: 700;
+        }
+
+        footer p, footer a {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        footer a:hover {
+            color: #a8626c;
+        }
+
+        footer .divider {
+            width: 100%;
+            height: 1px;
+            background: #333333;
+            margin: 2rem 0 1rem;
+        }
+
+        footer .copyright {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .products-grid {
+                gap: 1.5rem;
+            }
+
+            .product-card {
+                min-height: 300px;
+            }
+
+            .buy-methods {
+                gap: 1.5rem;
+            }
+
+            footer .container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            footer a, footer p {
+                text-align: center;
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">LUMIÉRA Shine</div>
+            <ul class="nav-links">
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#how-to-buy">Cara Beli</a></li>
+                <li><a href="#footer">Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>LUMIÉRA Shine</h1>
+        <p class="tagline">Shine in Every Shade<span class="shine-icon">✨</span></p>
+        <p style="color: #5a5a5a; font-size: 1.05rem; max-width: 600px; margin-bottom: 2rem;">
+            Premium hijab crafted to elevate your everyday elegance. Kualitas terbaik dengan desain yang memukau untuk setiap momen.
+        </p>
+        <a href="#how-to-buy" class="cta-primary">Lihat Koleksi</a>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <h2>Koleksi Kami</h2>
+
+        <div class="container">
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image color-burgundy">
+                        Paris Japan
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Paris Japan</div>
+                        <div class="product-color">Burgundy</div>
+                        <div class="product-desc">
+                            Koleksi eksklusif dengan tekstur lembut dan drape sempurna untuk penampilan glamor sehari-hari.
+                        </div>
+                        <a href="#how-to-buy" class="product-link">Pesan Sekarang →</a>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image color-oatmeal">
+                        Paris Japan
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Paris Japan</div>
+                        <div class="product-color">Oatmeal</div>
+                        <div class="product-desc">
+                            Warna netral yang elegan, cocok untuk segala kesempatan dan mudah dipadukan dengan berbagai outfit.
+                        </div>
+                        <a href="#how-to-buy" class="product-link">Pesan Sekarang →</a>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image color-stone">
+                        Viscose Mini Air Flow
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Viscose Mini Air Flow</div>
+                        <div class="product-color">Stone Grey</div>
+                        <div class="product-desc">
+                            Teknologi breathable dengan bahan viscose berkualitas tinggi untuk kenyamanan maksimal sepanjang hari.
+                        </div>
+                        <a href="#how-to-buy" class="product-link">Pesan Sekarang →</a>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image color-sage">
+                        Viscose Mini Air Flow
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Viscose Mini Air Flow</div>
+                        <div class="product-color">Hydra Sage</div>
+                        <div class="product-desc">
+                            Nuansa hijau menenangkan yang sophisticated, sempurna untuk menciptakan appearance yang fresh dan modern.
+                        </div>
+                        <a href="#how-to-buy" class="product-link">Pesan Sekarang →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Buy Section -->
+    <section class="how-to-buy" id="how-to-buy">
+        <h2>Cara Beli</h2>
+
+        <div class="container">
+            <div class="buy-methods">
+                <!-- WhatsApp -->
+                <div class="buy-method">
+                    <div class="buy-method-icon">💬</div>
+                    <h3>WhatsApp</h3>
+                    <p>Chat langsung untuk konsultasi produk dan pemesanan. Response cepat dan bantuan personal shopper tersedia.</p>
+                    <!-- CATATAN: Ganti nomor WhatsApp dengan nomor aktual brand Anda (format internasional tanpa tanda +) -->
+                    <a href="https://wa.me/62xxxxxxxxxx" class="btn" target="_blank">Chat di WhatsApp</a>
+                </div>
+
+                <!-- Shopee -->
+                <div class="buy-method">
+                    <div class="buy-method-icon">🛍️</div>
+                    <h3>Shopee</h3>
+                    <p>Belanja dengan aman di Shopee dengan berbagai metode pembayaran dan jaminan kepuasan pelanggan.</p>
+                    <!-- CATATAN: Ganti link Shopee dengan URL toko Shopee brand Anda -->
+                    <a href="https://shopee.co.id/search?keyword=lumiera.shine" class="btn btn-secondary" target="_blank">Kunjungi Toko</a>
+                </div>
+
+                <!-- Instagram -->
+                <div class="buy-method">
+                    <div class="buy-method-icon">📸</div>
+                    <h3>Instagram</h3>
+                    <p>Follow Instagram kami untuk update koleksi terbaru, tips styling, dan promo eksklusif member setia.</p>
+                    <!-- CATATAN: Ganti dengan URL Instagram profile brand Anda -->
+                    <a href="https://instagram.com/lumiera.shine" class="btn btn-secondary" target="_blank">Follow Instagram</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div>
+                <h4>LUMIÉRA Shine</h4>
+                <p>Premium hijab crafted to elevate your everyday elegance. Shine in Every Shade.</p>
+            </div>
+            <div>
+                <h4>Hubungi Kami</h4>
+                <p>
+                    <a href="https://wa.me/62xxxxxxxxxx">WhatsApp</a><br>
+                    <a href="https://shopee.co.id/search?keyword=lumiera.shine">Shopee</a><br>
+                    <a href="https://instagram.com/lumiera.shine">Instagram</a>
+                </p>
+            </div>
+            <div>
+                <h4>Layanan Pelanggan</h4>
+                <p>
+                    Response: 24 jam<br>
+                    Pengiriman: Seluruh Indonesia<br>
+                    Kualitas: 100% Terjamin<br>
+                </p>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="copyright">
+            <p>&copy; 2026 LUMIÉRA Shine. All rights reserved. Made with <span style="color: #a8626c;">❤</span> for elegance lovers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'fadeIn 0.6s ease-in-out';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe product cards
+        document.querySelectorAll('.product-card, .buy-method').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+
+        // Add fadeIn keyframes dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
