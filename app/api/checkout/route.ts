@@ -6,6 +6,7 @@ export async function POST(req: Request) {
     const { productId, quantity = 1, customerName, customerEmail, customerPhone } = await req.json();
     const product = await prisma.product.findUnique({ where: { id: productId } });
     if (!product || quantity < 1) return NextResponse.json({ error: 'Produk tidak ditemukan' }, { status: 400 });
+    if (product.stock < quantity) return NextResponse.json({ error: `Stok tidak cukup. Sisa stok: ${product.stock}.` }, { status: 409 });
     const orderId = `LUM-${Date.now()}`, total = product.price * quantity;
     const order = await prisma.order.create({ data: { orderId, customerName, customerEmail, customerPhone, total, items: { create: { productId, quantity, price: product.price } } } });
     if (!process.env.MIDTRANS_SERVER_KEY) return NextResponse.json({ orderId: order.orderId, message: 'Midtrans belum dikonfigurasi' });

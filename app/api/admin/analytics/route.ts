@@ -1,0 +1,5 @@
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
+import { NextResponse } from 'next/server';
+export async function GET(){if(!await getServerSession(authOptions))return NextResponse.json({error:'Unauthorized'},{status:401});const orders=await prisma.order.findMany({where:{status:{in:['SETTLEMENT','CAPTURE']}},include:{items:{include:{product:true}}},orderBy:{createdAt:'asc'}});const daily:Record<string,number>={};const ranking:Record<string,{name:string;quantity:number}>={};for(const order of orders){const day=order.createdAt.toISOString().slice(0,10);daily[day]=(daily[day]||0)+order.total;for(const item of order.items){ranking[item.productId]??={name:item.product.name,quantity:0};ranking[item.productId].quantity+=item.quantity;}}const last30=Array.from({length:30},(_,i)=>{const d=new Date();d.setDate(d.getDate()-29+i);const key=d.toISOString().slice(0,10);return {date:key,total:daily[key]||0}});return NextResponse.json({daily:last30,bestsellers:Object.values(ranking).sort((a,b)=>b.quantity-a.quantity).slice(0,5)});}

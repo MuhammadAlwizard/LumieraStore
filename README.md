@@ -5,9 +5,9 @@ E-commerce hijab berbasis Next.js App Router, Prisma + SQLite, NextAuth Credenti
 ## Menjalankan lokal
 
 1. `npm install`
-2. Salin `.env.example` menjadi `.env.local`, lalu isi `NEXTAUTH_SECRET` dan key Midtrans bila checkout ingin aktif.
+2. Salin `.env.example` menjadi `.env` (Prisma CLI membaca `.env`), lalu isi `NEXTAUTH_SECRET` dan key Midtrans bila checkout ingin aktif.
 3. `npx prisma generate`
-4. `npx prisma migrate dev --name init`
+4. `npx prisma migrate dev`
 5. `npm run prisma:seed`
 6. `npm run dev`
 

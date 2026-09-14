@@ -1,14 +1,22 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = "sqlite" url = env("DATABASE_URL") }
+generator client {
+  provider = "prisma-client-js"
+}
 
-enum Role { ADMIN }
-enum OrderStatus { PENDING PAID SETTLEMENT CAPTURE DENY CANCELLED EXPIRED REFUNDED }
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// SQLite tidak mendukung tipe enum di Prisma, jadi Role & OrderStatus
+// direpresentasikan sebagai String dengan nilai yang dibatasi di level aplikasi:
+// Role: "ADMIN"
+// OrderStatus: "PENDING" | "PAID" | "SETTLEMENT" | "CAPTURE" | "DENY" | "CANCELLED" | "EXPIRED" | "REFUNDED"
 
 model User {
   id String @id @default(cuid())
   username String @unique
   passwordHash String
-  role Role @default(ADMIN)
+  role String @default("ADMIN")
   createdAt DateTime @default(now())
 }
 
@@ -18,11 +26,22 @@ model Product {
   slug String @unique
   price Int
   description String
-  color String
+  colorId String
+  color Color @relation(fields: [colorId], references: [id])
+  stock Int @default(0)
   imagePath String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orderItems OrderItem[]
+  stockMovements StockMovement[]
+}
+
+model Color {
+  id String @id @default(cuid())
+  name String @unique
+  hex String
+  createdAt DateTime @default(now())
+  products Product[]
 }
 
 model Order {
@@ -32,7 +51,7 @@ model Order {
   customerEmail String
   customerPhone String?
   total Int
-  status OrderStatus @default(PENDING)
+  status String @default("PENDING")
   snapToken String?
   transactionId String?
   createdAt DateTime @default(now())
@@ -47,5 +66,15 @@ model OrderItem {
   orderId String
   productId String
   order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model StockMovement {
+  id String @id @default(cuid())
+  productId String
+  type String
+  quantity Int
+  note String?
+  createdAt DateTime @default(now())
   product Product @relation(fields: [productId], references: [id])
 }
