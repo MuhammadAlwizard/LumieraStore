@@ -50,6 +50,7 @@ model Order {
   customerName String
   customerEmail String
   customerPhone String?
+  shippingAddress String
   total Int
   status String @default("PENDING")
   snapToken String?
