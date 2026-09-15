@@ -16,10 +16,10 @@ export async function POST(req: Request) {
     const { error } = await supabaseAdmin.storage
       .from(PRODUCT_IMAGES_BUCKET)
       .upload(filename, Buffer.from(await file.arrayBuffer()), { contentType: file.type });
-    if (error) return NextResponse.json({ error: 'Gagal mengupload gambar', detail: error.message }, { status: 500 });
+    if (error) return NextResponse.json({ error: 'Gagal mengupload gambar' }, { status: 500 });
     const { data } = supabaseAdmin.storage.from(PRODUCT_IMAGES_BUCKET).getPublicUrl(filename);
     return NextResponse.json({ path: data.publicUrl });
-  } catch (e: any) {
-    return NextResponse.json({ error: 'Gagal mengupload gambar', detail: String(e?.message || e) }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: 'Gagal mengupload gambar' }, { status: 500 });
   }
 }
