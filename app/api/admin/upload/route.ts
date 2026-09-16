@@ -24,3 +24,20 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Gagal mengupload gambar' }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  const s = await getServerSession(authOptions);
+  if (!s) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const { path } = await req.json();
+  if (typeof path !== 'string' || !path) return NextResponse.json({ error: 'Path wajib diisi' }, { status: 400 });
+  const filename = path.split(`/${PRODUCT_IMAGES_BUCKET}/`).pop();
+  if (!filename) return NextResponse.json({ error: 'Path tidak valid' }, { status: 400 });
+  try {
+    const supabaseAdmin = getSupabaseAdmin();
+    const { error } = await supabaseAdmin.storage.from(PRODUCT_IMAGES_BUCKET).remove([filename]);
+    if (error) return NextResponse.json({ error: 'Gagal menghapus gambar' }, { status: 500 });
+    return NextResponse.json({ ok: true });
+  } catch {
+    return NextResponse.json({ error: 'Gagal menghapus gambar' }, { status: 500 });
+  }
+}
