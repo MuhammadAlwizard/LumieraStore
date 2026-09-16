@@ -1,11 +1,11 @@
 # LUMIÉRA Shine
 
-E-commerce hijab berbasis Next.js App Router, Prisma + SQLite, NextAuth Credentials, dan Midtrans Snap sandbox.
+E-commerce hijab berbasis Next.js App Router, Prisma + SQLite, NextAuth Credentials, dan pembayaran QRIS manual (konfirmasi admin).
 
 ## Menjalankan lokal
 
 1. `npm install`
-2. Salin `.env.example` menjadi `.env` (Prisma CLI membaca `.env`), lalu isi `NEXTAUTH_SECRET` dan key Midtrans bila checkout ingin aktif.
+2. Salin `.env.example` menjadi `.env` (Prisma CLI membaca `.env`), lalu isi `NEXTAUTH_SECRET`.
 3. `npx prisma generate`
 4. `npx prisma migrate dev`
 5. `npm run prisma:seed`
@@ -24,10 +24,10 @@ User disimpan di tabel `User`; admin tambahan dapat dibuat dengan menambah recor
 
 - `DATABASE_URL`: default lokal `file:./dev.db`.
 - `NEXTAUTH_URL` dan `NEXTAUTH_SECRET`: URL aplikasi serta secret acak panjang.
-- `MIDTRANS_SERVER_KEY`: server key sandbox/production dari Midtrans.
-- `NEXT_PUBLIC_MIDTRANS_CLIENT_KEY`: client key yang sesuai environment.
-- `NEXT_PUBLIC_WHATSAPP_URL`: nomor WhatsApp resmi.
+- `NEXT_PUBLIC_WHATSAPP_URL`: nomor WhatsApp resmi, dipakai juga untuk konfirmasi pembayaran QRIS oleh customer.
 - `NEXT_PUBLIC_SHOPEE_URL`: URL toko Shopee resmi.
 - `NEXT_PUBLIC_INSTAGRAM_URL`: URL Instagram resmi.
 
-Webhook Midtrans diarahkan ke `/api/midtrans/notification`. Endpoint memverifikasi `signature_key` sebelum memperbarui status order.
+## Alur pembayaran
+
+Checkout membuat `Order` berstatus `PENDING` dan menampilkan QRIS statis (`public/branding/qris.jpg`) plus tombol konfirmasi ke WhatsApp. Setelah customer transfer dan kirim bukti lewat WhatsApp, admin menandai order sebagai lunas lewat tombol "Tandai Lunas" di `/admin` — endpoint `/api/admin/orders/confirm` yang memotong stok dan mengubah status jadi `SETTLEMENT`.

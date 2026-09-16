@@ -1,6 +1,5 @@
 import './globals.css';
 import { ReactNode } from 'react';
-import Script from 'next/script';
 import { Cormorant_Garamond, Jost } from 'next/font/google';
 
 const display = Cormorant_Garamond({
@@ -25,7 +24,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="id" className={`${display.variable} ${sans.variable}`}>
       <body>
         {children}
-        <Script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY} />
       </body>
     </html>
   );

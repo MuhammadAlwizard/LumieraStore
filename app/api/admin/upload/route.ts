@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { NextResponse } from 'next/server';
-import { supabaseAdmin, PRODUCT_IMAGES_BUCKET } from '@/lib/supabase';
+import { getSupabaseAdmin, PRODUCT_IMAGES_BUCKET } from '@/lib/supabase';
 
 export async function POST(req: Request) {
   const s = await getServerSession(authOptions);
@@ -13,6 +13,7 @@ export async function POST(req: Request) {
   const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
   try {
+    const supabaseAdmin = getSupabaseAdmin();
     const { error } = await supabaseAdmin.storage
       .from(PRODUCT_IMAGES_BUCKET)
       .upload(filename, Buffer.from(await file.arrayBuffer()), { contentType: file.type });
