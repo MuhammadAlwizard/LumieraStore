@@ -1,8 +1,9 @@
 'use client';
 import { useState } from 'react';
 
-export default function CheckoutForm({ product }: { product: { id: string; price: number } }) {
+export default function CheckoutForm({ product }: { product: { id: string; price: number; stock: number } }) {
   const [data, setData] = useState({ customerName: '', customerEmail: '', customerPhone: '', shippingAddress: '' });
+  const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState<{ orderId: string; total: number } | null>(null);
@@ -11,7 +12,7 @@ export default function CheckoutForm({ product }: { product: { id: string; price
     e.preventDefault();
     setLoading(true);
     setMessage('');
-    const r = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, productId: product.id }) });
+    const r = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, productId: product.id, quantity }) });
     const j = await r.json();
     setLoading(false);
     if (j.orderId) {
@@ -40,10 +41,12 @@ export default function CheckoutForm({ product }: { product: { id: string; price
     <form className="lux-checkout" onSubmit={submit}>
       <h3>Checkout</h3>
       <p className="lux-checkout__hint">Isi data pengiriman, pembayaran lewat QRIS.</p>
-      <input className="form-control" required placeholder="Nama lengkap" value={data.customerName} onChange={e => setData({ ...data, customerName: e.target.value })} />
-      <input className="form-control" required type="email" placeholder="Email" value={data.customerEmail} onChange={e => setData({ ...data, customerEmail: e.target.value })} />
-      <input className="form-control" placeholder="Nomor WhatsApp" value={data.customerPhone} onChange={e => setData({ ...data, customerPhone: e.target.value })} />
-      <textarea className="form-control" required placeholder="Alamat lengkap pengiriman (jalan, kota, kecamatan, kode pos)" rows={3} value={data.shippingAddress} onChange={e => setData({ ...data, shippingAddress: e.target.value })} />
+      <input className="form-control" required aria-label="Nama lengkap" placeholder="Nama lengkap" value={data.customerName} onChange={e => setData({ ...data, customerName: e.target.value })} />
+      <input className="form-control" required aria-label="Email" type="email" placeholder="Email" value={data.customerEmail} onChange={e => setData({ ...data, customerEmail: e.target.value })} />
+      <input className="form-control" aria-label="Nomor WhatsApp" placeholder="Nomor WhatsApp" value={data.customerPhone} onChange={e => setData({ ...data, customerPhone: e.target.value })} />
+      <textarea className="form-control" required aria-label="Alamat lengkap pengiriman" placeholder="Alamat lengkap pengiriman (jalan, kota, kecamatan, kode pos)" rows={3} value={data.shippingAddress} onChange={e => setData({ ...data, shippingAddress: e.target.value })} />
+      <label style={{ display: 'block', fontSize: 13, color: 'var(--muted)', margin: '4px 0' }} htmlFor="checkout-qty">Jumlah (stok tersedia: {product.stock})</label>
+      <input id="checkout-qty" className="form-control" type="number" min={1} max={product.stock} value={quantity} onChange={e => setQuantity(Math.max(1, Math.min(product.stock, Number(e.target.value) || 1)))} />
       <button className="lux-btn lux-btn--block" disabled={loading}>{loading ? 'Memproses…' : 'Bayar Sekarang'}</button>
       {message && <p className="success">{message}</p>}
     </form>

@@ -40,7 +40,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
               ) : (
                 <>
                   <p className="lux-stock">Stok tersedia — {p.stock} pcs</p>
-                  <CheckoutForm product={p} />
+                  <CheckoutForm product={{ id: p.id, price: p.price, stock: p.stock }} />
                 </>
               )}
             </div>

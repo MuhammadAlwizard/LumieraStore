@@ -133,7 +133,9 @@ export default async function Home() {
               </p>
             </div>
           </div>
-          <div className="lux-footer__note">© 2026 LUMIÉRA Shine</div>
+          <div className="lux-footer__note">
+            © 2026 LUMIÉRA Shine · <a href="/kebijakan-privasi">Kebijakan Privasi</a> · <a href="/syarat-ketentuan">Syarat & Ketentuan</a>
+          </div>
         </div>
       </footer>
     </>

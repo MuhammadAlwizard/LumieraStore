@@ -1,5 +1,6 @@
 import './globals.css';
 import { ReactNode } from 'react';
+import type { Metadata } from 'next';
 import { Cormorant_Garamond, Jost } from 'next/font/google';
 
 const display = Cormorant_Garamond({
@@ -17,7 +18,29 @@ const sans = Jost({
   display: 'swap',
 });
 
-export const metadata = { title: 'LUMIÉRA Shine — Shine in Every Shade', description: 'Premium hijab crafted to elevate your everyday elegance.' };
+const title = 'LUMIÉRA Shine — Shine in Every Shade';
+const description = 'Premium hijab crafted to elevate your everyday elegance.';
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://lumierastore.online'),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: 'https://lumierastore.online',
+    siteName: 'LUMIÉRA Shine',
+    images: [{ url: '/branding/hero-tag.jpg', width: 1170, height: 1464 }],
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: ['/branding/hero-tag.jpg'],
+  },
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
