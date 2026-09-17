@@ -4,14 +4,15 @@ import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import SiteHeader from '@/components/SiteHeader';
 import ProductVisual from '@/components/ProductVisual';
-import CheckoutForm from '@/components/CheckoutForm';
+import AddToCartButton from '@/components/AddToCartButton';
+import { getStockStatus } from '@/lib/stock';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const p = await prisma.product.findUnique({ where: { slug: params.slug }, include: { color: true } });
   if (!p) return notFound();
-  const soldOut = p.stock <= 0;
+  const stockStatus = getStockStatus(p.stock);
 
   return (
     <>
@@ -32,15 +33,19 @@ export default async function ProductPage({ params }: { params: { slug: string }
               <h1>{p.name.replace(` ${p.color.name}`, '')}</h1>
               <div className="lux-detail__price">Rp {p.price.toLocaleString('id-ID')}</div>
               <p className="lux-detail__desc">{p.description}</p>
-              {soldOut ? (
+              {stockStatus === 'out' ? (
                 <>
                   <p className="lux-stock">Stok sedang kosong</p>
                   <span className="lux-badge lux-badge--out">Habis</span>
                 </>
               ) : (
                 <>
-                  <p className="lux-stock">Stok tersedia — {p.stock} pcs</p>
-                  <CheckoutForm product={{ id: p.id, price: p.price, stock: p.stock }} />
+                  {stockStatus === 'low' && <span className="lux-badge lux-badge--low">Stok terbatas</span>}
+                  <AddToCartButton
+                    className="lux-btn lux-btn--block"
+                    label="+ Tambah ke Keranjang"
+                    product={{ id: p.id, name: p.name, price: p.price, slug: p.slug, imagePath: p.imagePath, colorName: p.color.name, colorHex: p.color.hex }}
+                  />
                 </>
               )}
             </div>

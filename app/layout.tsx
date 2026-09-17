@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { Cormorant_Garamond, Jost } from 'next/font/google';
+import CartProvider from '@/components/CartProvider';
+import CartDrawer from '@/components/CartDrawer';
 
 const display = Cormorant_Garamond({
   subsets: ['latin'],
@@ -47,7 +49,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="id" className={`${display.variable} ${sans.variable}`}>
       <body>
-        {children}
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
         {process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY && (
           <Script
             src={process.env.MIDTRANS_IS_PRODUCTION === 'true' ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js'}
