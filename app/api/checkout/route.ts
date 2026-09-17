@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { expireStaleOrders } from '@/lib/orders';
 import { NextResponse } from 'next/server';
+import Midtrans from 'midtrans-client';
 
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX_ORDERS = 5;
@@ -33,7 +34,21 @@ export async function POST(req: Request) {
       });
     });
 
-    return NextResponse.json({ orderId: order.orderId, total: order.total });
+    if (!process.env.MIDTRANS_SERVER_KEY) return NextResponse.json({ orderId: order.orderId, total: order.total });
+
+    const snap = new Midtrans.Snap({
+      isProduction: process.env.MIDTRANS_IS_PRODUCTION === 'true',
+      serverKey: process.env.MIDTRANS_SERVER_KEY,
+      clientKey: process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY,
+    });
+    const transaction = await snap.createTransaction({
+      transaction_details: { order_id: orderId, gross_amount: total },
+      item_details: [{ id: product.id, price: product.price, quantity, name: product.name }],
+      customer_details: { first_name: customerName, email: customerEmail, phone: customerPhone },
+    });
+    await prisma.order.update({ where: { id: order.id }, data: { snapToken: transaction.token } });
+
+    return NextResponse.json({ orderId, token: transaction.token, total });
   } catch (err) {
     if (err instanceof Error && err.message === 'INSUFFICIENT_STOCK') {
       return NextResponse.json({ error: 'Stok tidak cukup untuk jumlah yang diminta.' }, { status: 409 });
