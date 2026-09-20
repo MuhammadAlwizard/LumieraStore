@@ -7,3 +7,20 @@ prisma/*.db-journal
 public/uploads/products/*
 !.gitkeep
 *.log
+
+# Public-repo guard (see CLAUDE.md)
+.env.*
+out
+dist
+coverage
+.claude
+*.zip
+*.tar
+*.sql
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+!prisma/migrations/**/*.sql
+prisma/migrations_sqlite_backup/
+!.env.example

@@ -4,7 +4,10 @@ const prisma = new PrismaClient();
 const hash = (value: string) => createHash('sha256').update(value).digest('hex');
 
 async function main() {
-  await prisma.user.upsert({ where: { username: 'admin' }, update: {}, create: { username: 'admin', passwordHash: hash('LumieraAdmin2026!') } });
+  const adminPassword = process.env.ADMIN_SEED_PASSWORD;
+  if (!adminPassword) throw new Error('Set ADMIN_SEED_PASSWORD in .env before seeding (never commit a real password).');
+  // update: {} so re-running the seed never overwrites an existing admin's password.
+  await prisma.user.upsert({ where: { username: 'admin' }, update: {}, create: { username: 'admin', passwordHash: hash(adminPassword) } });
   const colors = [
     ['Burgundy', '#8B3A3A'],
     ['Oatmeal', '#F5E6D3'],
