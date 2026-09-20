@@ -4,7 +4,7 @@ const FROM = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
 
 export async function sendPasswordResetEmail(to: string, resetUrl: string) {
   const resend = new Resend(process.env.RESEND_API_KEY);
-  await resend.emails.send({
+  const { error } = await resend.emails.send({
     from: FROM,
     to,
     subject: 'Reset Password Admin LUMIÉRA Shine',
@@ -15,4 +15,5 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string) {
       <p>Link ini berlaku selama 1 jam. Kalau kamu tidak meminta ini, abaikan saja email ini.</p>
     </div>`,
   });
+  if (error) throw new Error(`Resend ${error.name}: ${error.message}`);
 }

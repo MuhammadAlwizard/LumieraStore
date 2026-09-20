@@ -27,7 +27,12 @@ export async function POST(req: Request) {
 
     const baseUrl = process.env.NEXTAUTH_URL ?? new URL(req.url).origin;
     const resetUrl = `${baseUrl}/admin/reset-password?token=${rawToken}`;
-    await sendPasswordResetEmail(user.email, resetUrl);
+    try {
+      await sendPasswordResetEmail(user.email, resetUrl);
+    } catch (err) {
+      // Keep the response generic (no user enumeration) but leave a trace in the server logs.
+      console.error('[forgot-password] failed to send reset email:', err);
+    }
   }
 
   return NextResponse.json({ message: GENERIC_MESSAGE });
