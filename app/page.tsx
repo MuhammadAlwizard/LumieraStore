@@ -5,6 +5,9 @@ import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
+// Canonical is set per page (not in the root layout, where it would be inherited by every route).
+export const metadata = { alternates: { canonical: '/' } };
+
 const channels = [
   {
     title: 'WhatsApp',

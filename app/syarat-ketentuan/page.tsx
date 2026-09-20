@@ -1,6 +1,6 @@
 import SiteHeader from '@/components/SiteHeader';
 
-export const metadata = { title: 'Syarat & Ketentuan — LUMIÉRA Shine' };
+export const metadata = { title: 'Syarat & Ketentuan — LUMIÉRA Shine', alternates: { canonical: '/syarat-ketentuan' } };
 
 export default function TermsOfService() {
   return (

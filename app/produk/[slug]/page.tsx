@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title,
     description: p.description,
+    alternates: { canonical: `/produk/${p.slug}` },
     openGraph: { title, description: p.description, url: `/produk/${p.slug}`, images: [{ url: image }] },
     twitter: { card: 'summary_large_image', title, description: p.description, images: [image] },
   };

@@ -1,6 +1,6 @@
 import SiteHeader from '@/components/SiteHeader';
 
-export const metadata = { title: 'Kebijakan Privasi — LUMIÉRA Shine' };
+export const metadata = { title: 'Kebijakan Privasi — LUMIÉRA Shine', alternates: { canonical: '/kebijakan-privasi' } };
 
 export default function PrivacyPolicy() {
   return (

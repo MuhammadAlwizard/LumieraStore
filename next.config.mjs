@@ -11,6 +11,17 @@ try {
 const nextConfig = {
   images: { unoptimized: true },
   poweredByHeader: false,
+  // One canonical host: www and the bare domain served identical pages (duplicate content in Search Console).
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.lumierastore.online' }],
+        destination: 'https://lumierastore.online/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
